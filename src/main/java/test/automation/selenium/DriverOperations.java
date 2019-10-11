@@ -2,6 +2,7 @@ package test.automation.selenium;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
 import java.util.Set;
 
 abstract public class DriverOperations {
@@ -46,4 +47,44 @@ abstract public class DriverOperations {
     protected Set<String> windowHandles() {
         return driver.getWindowHandles();
     }
+
+    protected String getCurrentUrl() {
+        return driver.getCurrentUrl();
+    }
+
+    protected DriverOperations quit() {
+        driver.quit();
+        return this;
+    }
+
+    protected DriverOperations maximize() {
+        driver.manage().window().maximize();
+        return this;
+    }
+
+    protected DriverOperations fullScreen() {
+        driver.manage().window().fullscreen();
+        return this;
+    }
+
+    protected DriverOperations getSize() {
+        driver.manage().window().getSize();
+        return this;
+    }
+
+    protected DriverOperations getPosition() {
+        driver.manage().window().getPosition();
+        return this;
+    }
+
+    protected Boolean isDisplayed(WebElement element) {
+        return element.isDisplayed();
+    }
+
+    protected DriverOperations submit(WebElement element) {
+        element.submit();
+        return this;
+    }
+
 }
+
