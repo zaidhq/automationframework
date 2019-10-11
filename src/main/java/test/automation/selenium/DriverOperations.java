@@ -1,8 +1,8 @@
 package test.automation.selenium;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import java.util.Set;
 
 abstract public class DriverOperations {
 
@@ -17,7 +17,6 @@ abstract public class DriverOperations {
     protected DriverOperations sendKeys(WebElement element, String text) {
         element.sendKeys(text);
         return this;
-
     }
 
     protected DriverOperations close() {
@@ -25,19 +24,13 @@ abstract public class DriverOperations {
         return this;
     }
 
-    protected DriverOperations navigate() {
-        driver.navigate();
+    protected DriverOperations navigateBack() {
+        driver.navigate().back();
         return this;
     }
 
-    protected DriverOperations findElement(WebElement element, Object By) {
-        element.findElement((org.openqa.selenium.By) By);
-        return this;
-    }
-
-    protected String windowHandles(String text) {
-        driver.getWindowHandle();
-        return text;
+    protected String windowHandle() {
+        return driver.getWindowHandle();
     }
 
     protected DriverOperations click(WebElement element) {
@@ -48,18 +41,9 @@ abstract public class DriverOperations {
     protected DriverOperations switchTo(WebElement element) {
         driver.switchTo();
         return this;
-
     }
 
-    protected DriverOperations equals(String text) {
-        driver.equals(text);
-        return this;
+    protected Set<String> windowHandles() {
+        return driver.getWindowHandles();
     }
-
-    protected DriverOperations wait(long time, int nano) throws InterruptedException {
-        driver.wait(time, nano);
-        return this;
-
-    }
-
 }
