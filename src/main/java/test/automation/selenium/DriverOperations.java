@@ -45,7 +45,21 @@ abstract public class DriverOperations {
         return this;
     }
 
+    protected DriverOperations switchTo(WebElement element) {
+        driver.switchTo();
+        return this;
 
+    }
 
+    protected DriverOperations equals(String text) {
+        driver.equals(text);
+        return this;
+    }
+
+    protected DriverOperations wait(long time, int nano) throws InterruptedException {
+        driver.wait(time, nano);
+        return this;
+
+    }
 
 }
