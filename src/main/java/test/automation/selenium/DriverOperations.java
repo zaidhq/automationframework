@@ -39,12 +39,12 @@ abstract public class DriverOperations {
         return this;
     }
 
-    protected DriverOperations switchTo(WebElement element) {
-        driver.switchTo();
+    protected DriverOperations switchToWindow(String handle) {
+        driver.switchTo().window(handle);
         return this;
     }
 
-    protected Set<String> windowHandles() {
+    protected Set<String> getWindowHandles() {
         return driver.getWindowHandles();
     }
 
