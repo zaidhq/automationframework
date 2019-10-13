@@ -30,7 +30,7 @@ abstract public class DriverOperations {
         return this;
     }
 
-    protected String windowHandle() {
+    protected String getWindowHandle() {
         return driver.getWindowHandle();
     }
 
@@ -43,6 +43,7 @@ abstract public class DriverOperations {
         driver.switchTo().window(handle);
         return this;
     }
+
 
     protected Set<String> getWindowHandles() {
         return driver.getWindowHandles();

@@ -2,36 +2,52 @@ package test.automation.properties;
 
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 public class ReadExcel {
-    public static final String file = "C:\\Users\\zaidh\\OneDrive\\Documents\\Employee.ods";
 
-    public static void main(String[] args) throws IOException, InvalidFormatException {
+    public static void main(String[] args) throws IOException {
+        XSSFWorkbook workbook = new XSSFWorkbook("Excel/test.xlsx");
+        LinkedList<Employee> employees = new LinkedList<>();
 
-        // Creating a Workbook from an Excel file (.xls or .xlsx)
-        Workbook workbook = WorkbookFactory.create(new File("C:\\Users\\zaidh\\OneDrive\\Documents\\Employee.ods"));
+        for (Sheet sheet : workbook) {
+            for (Row row : sheet) {
 
-        // Retrieving the number of sheets in the Workbook
-        System.out.println("Workbook has " + workbook.getNumberOfSheets() + " Sheets : ");
+                if (row.getRowNum() == 0)
+                    continue;
+                Employee employee = new Employee();
 
-        /*
-           =============================================================
-           Iterating over all the sheets in the workbook (Multiple ways)
-           =============================================================
-        */
+                for (Cell cell : row) {
 
-        Iterator<Sheet> sheetIterator = workbook.sheetIterator();
-        System.out.println("Retrieving Sheets using Iterator");
-        while (sheetIterator.hasNext()) {
-            Sheet sheet = sheetIterator.next();
-            System.out.println("=> " + sheet.getSheetName());
+                    switch (cell.getColumnIndex()) {
+                        case 0:
+                            employee.setId((long) Double.parseDouble(cell.toString()));
+                            break;
+
+                        case 1:
+                            employee.setUsername(cell.getStringCellValue());
+                            break;
+
+                        case 2:
+                            employee.setPassword(cell.getStringCellValue());
+                            break;
+
+
+                        default:
+                            System.out.println("The cell \"" + sheet.getRow(0).getCell(cell.getColumnIndex()) + "\" is not mapped");
+                    }
+                }
+                employees.add(employee);
+            }
         }
+        employees.forEach(employee -> {
+            System.out.println(employee.toString());
+        });
     }
 }
